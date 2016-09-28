@@ -2,52 +2,15 @@
  * Created by ryan on 9/27/16.
  */
 
-function callAjax(url, callback){
-    var xmlhttp;
-    // compatible with IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function(){
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-            callback(xmlhttp.responseText);
-        }
-    }
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-}
-
-function createShader(gl, type, source) {
-    var shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (success) {
-        console.log(type + ' shader creation successful')
-        return shader;
-    }
-
-    console.log(gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-}
-
-function createProgram(gl, vertexShader, fragmentShader) {
-    var program = gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    var success = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (success) {
-        console.log('program creation successful')
-        return program;
-    }
-
-    console.log(gl.getProgramInfoLog(program));
-    gl.deleteProgram(program);
-}
-
+//in this setup, one point is drawn in the center of the screen, it's position set explicitly in the shader.
+//no data is passed to the shader from JS.
 
 "use strict";
 
 function main() {
+
+//------context creation and shader loading boilerplate---------------
+
     //paths to external shader sources
     var vertexShaderPath = 'shaders/pointV.glsl';
     var fragmentShaderPath = 'shaders/pointF.glsl';
@@ -58,11 +21,16 @@ function main() {
     var shaderCount = 2;  //we will decrement this as the ajax requests complete.
     var shaders = {};
 
-    // setupLesson(canvas);  // this is just to change the style if we're in an iframe
     var gl = canvas.getContext("webgl");
     if (!gl) {
         return;
     }
+    //resize canvas to fit browser window
+    gl.canvas.width = window.innerWidth;
+    gl.canvas.height = window.innerHeight;
+
+    //make sure resolution matches
+    gl.viewport(0,0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
     // Get the strings for our GLSL shaders
     var vertexShaderSource = callAjax(vertexShaderPath, function(result) { processShaders(result, gl.VERTEX_SHADER) });
@@ -81,13 +49,34 @@ function main() {
         }
     }
 
+
+//-----------------------------------------------------------
+
+    //the business happens here
+
     function onShadersLoaded(){
 
         // Link the two shaders into a program
         var program = createProgram(gl, shaders[gl.VERTEX_SHADER], shaders[gl.FRAGMENT_SHADER]);
 
+        gl.bindAttribLocation(program, 0, 'a_Position');
+
+
+
         //set the res
         var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
+
+        // hook up js variables to gl program attributes
+        var a_Position = gl.getAttribLocation(program, 'a_Position');
+
+        var a_PointSize = gl.getAttribLocation(program, 'a_PointSize')
+
+        //array to store our point positions
+        var positions = [];
+
+        //counter
+        var counter = 0;
+
 
 
         // Tell it to use our program (pair of shaders)
@@ -96,16 +85,52 @@ function main() {
         //set the resolution
         gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
-        //clear screen
-        gl.clearColor(0.0, 0.0, 0.0, 0.0);
-        // draw
-        var primitiveType = gl.POINTS;
-        var offset = 0;
-        var count = 1;
-        gl.drawArrays(primitiveType, offset, count);
 
-    };
 
+        var i = 1000;
+        while(i--) {
+            positions.push(Math.random() * 2 -1);  //x
+            positions.push(Math.random() * 2 -1); //y
+            positions.push(Math.random() * 20); //size
+
+        }
+
+    function loop(){
+
+        //set clear color
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+        //clear the screen
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        var len = positions.length;
+        for(var i = 0; i < len; i+=3){
+
+            //pass vertex position to attribute variable
+            gl.vertexAttrib3f(a_Position, positions[i] * Math.sin(counter), positions[i+1] * Math.cos(counter), 0.0);
+            //pass point draw size to attribute variable
+            gl.vertexAttrib1f(a_PointSize, positions[i+2]);
+
+            // draw
+            var primitiveType = gl.POINTS;
+            var offset = 0;
+            var count = 1;
+            gl.drawArrays(primitiveType, offset, count);
+
+            counter+= .00001;
+
+            //positions[i] = positions[i] * Math.sin(counter);
+            //positions[i+2] = positions[i+2] * Math.cos(counter);
+
+
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+loop();
+
+    }
 }
 
 main();
