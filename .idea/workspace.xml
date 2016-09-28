@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae1d9638-c813-42ea-a9cc-a638ff94a216" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/onepoint.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shaders/pointF.glsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shaders/pointV.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/learnwebgl.iml" afterPath="$PROJECT_DIR$/.idea/learnwebgl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <ignored path="learnwebgl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,30 +26,24 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.25">
-              <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+            <state vertical-scroll-proportion="-13.125">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rectangles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/rectangles.js">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="89" column="76" selection-start-line="89" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc;n#callAjax#0" expanded="false" />
-                <element signature="n#!!block;n#callAjax#0" expanded="false" />
-                <element signature="n#!!block;n#createShader#0" expanded="false" />
-                <element signature="n#!!block;n#createProgram#0" expanded="false" />
-                <element signature="n#!!block;n#processShaders#0;n#!!block;n#main#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.055045873">
+              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="onepoint.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="onepoint.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/onepoint.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -117,7 +104,6 @@
         <option value="$PROJECT_DIR$/shaders/rectanglesF.glsl" />
         <option value="$PROJECT_DIR$/js/rectangles.js" />
         <option value="$PROJECT_DIR$/shaders/translationF.glsl" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/shaders/rectanglesV.glsl" />
         <option value="$PROJECT_DIR$/shaders/translationV.glsl" />
         <option value="$PROJECT_DIR$/js/translation.js" />
@@ -125,6 +111,7 @@
         <option value="$PROJECT_DIR$/shaders/pointF.glsl" />
         <option value="$PROJECT_DIR$/shaders/pointV.glsl" />
         <option value="$PROJECT_DIR$/js/onepoint.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -384,13 +371,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.060240965">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shaders/rectanglesV.glsl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30360934">
@@ -428,11 +408,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/shaders/helloWorldV.glsl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.25">
-          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.22018349">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/helloWorldF.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22018349">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/onepoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc;n#callAjax#0" expanded="false" />
+            <element signature="n#!!block;n#callAjax#0" expanded="false" />
+            <element signature="n#!!block;n#createShader#0" expanded="false" />
+            <element signature="n#!!block;n#createProgram#0" expanded="false" />
+            <element signature="n#!!block;n#processShaders#0;n#!!block;n#main#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -452,25 +454,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/helloWorldV.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22018349">
-          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/helloWorldF.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22018349">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/rectangles.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-0.16513762">
           <caret line="89" column="76" selection-start-line="89" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc;n#callAjax#0" expanded="false" />
@@ -482,17 +468,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/onepoint.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc;n#callAjax#0" expanded="false" />
-            <element signature="n#!!block;n#callAjax#0" expanded="false" />
-            <element signature="n#!!block;n#createShader#0" expanded="false" />
-            <element signature="n#!!block;n#createProgram#0" expanded="false" />
-            <element signature="n#!!block;n#processShaders#0;n#!!block;n#main#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-13.125">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.055045873">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
