@@ -94,7 +94,7 @@ function onShadersLoaded(){
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     var positions = [
-        10, 20,
+        10, 0,
         80, 20,
         10, 30,
         10, 30,

@@ -1,0 +1,27 @@
+{
+  "name": "learnwebgl",
+  "version": "1.0.0",
+  "description": "Ryan learns WebGL",
+  "main": "index.html",
+  "dependencies": {
+    "glslCanvas": "^0.0.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rybar/learnwebgl.git"
+  },
+  "keywords": [
+    "webgl",
+    "gamedev"
+  ],
+  "author": "Ryan Malm",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Rybar/learnwebgl/issues"
+  },
+  "homepage": "https://github.com/Rybar/learnwebgl#readme"
+}
