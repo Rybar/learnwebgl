@@ -1,8 +1,10 @@
 /**
- * Created by ryan on 9/27/16.
+ * Created by ryan on 9/28/16.
  */
 
-//in this setup, one point at a time is drawn from a positions array. no batching or buffer yet.
+//in this exercise, I create new points by clicking in the canvas.
+//this involves capturing the mouse event, and translating the x and y event coordinates
+//to canvas & clipspace coordinates
 
 "use strict";
 
@@ -71,7 +73,7 @@ function main() {
         var a_PointSize = gl.getAttribLocation(program, 'a_PointSize')
 
         //array to store our point positions
-        var positions = [];
+        var g_points = [];
 
         //counter
         var counter = 0;
@@ -84,53 +86,67 @@ function main() {
         //set the resolution
         gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
+        canvas.onmousedown = function(ev) { click(ev, gl, canvas, a_Position)};
 
+        function click(ev, gl, canvas, a_Position) {
+            var x = ev.clientX; //mouse x;
+            var y = ev.clientY; //mouse y;
+            var z = 15.0; //no 3d yet, for size
+            var rect = ev.target.getBoundingClientRect();
 
-        var i = 1000;
-        while(i--) {
-            positions.push(Math.random() * 2 -1);  //x
-            positions.push(Math.random() * 2 -1); //y
-            positions.push(Math.random() * 20); //size
+            //x = ( (x - rect.left) - gl.canvas.height/2 ) / ( gl.canvas.height/2 );
+            //y = ( gl.canvas.width/2 - (y - rect.top) ) / ( gl.canvas.width/2 );
 
+            x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
+            y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
+            console.info('width: ' + canvas.width + ' height: ' + canvas.height  + '\nx: ' + x + ' y: ' + y);
+            console.log(rect);
+            //x = (ev.clientX / gl.canvas.width) * 2 - 1;
+            //y = (ev.clientY / gl.canvas.height) * 2 + 1;
+
+            g_points.push(x); g_points.push(y); g_points.push(z);
         }
 
-    function loop(){
+        g_points.push(0,0,15); //so the screen isn't blank to start
 
-        //set clear color
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        function loop(){
 
-        //clear the screen
-        gl.clear(gl.COLOR_BUFFER_BIT);
+            //set clear color
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-        var len = positions.length;
+            //clear the screen
+            gl.clear(gl.COLOR_BUFFER_BIT);
 
-        //currently only drawing one at a time, no buffer, no batch. NOT how webGL works best
-        //but works for playing around with what I've learned so far
-        for(var i = 0; i < len; i+=3){
+            var len = g_points.length;
 
-            //pass vertex position to attribute variable
-            gl.vertexAttrib3f(a_Position, positions[i] * Math.sin(counter), positions[i+1] * Math.cos(counter), 0.0);
-            //pass point draw size to attribute variable
-            gl.vertexAttrib1f(a_PointSize, positions[i+2]);
+            //currently only drawing one at a time, no buffer, no batch. NOT how webGL works best
+            //but works for playing around with what I've learned so far
+            for(var i = 0; i < len; i+=3){
 
-            // draw
-            var primitiveType = gl.POINTS;
-            var offset = 0;
-            var count = 1;
-            gl.drawArrays(primitiveType, offset, count);
+                //pass vertex position to attribute variable
+                gl.vertexAttrib3f(a_Position, g_points[i], g_points[i+1], 0.0);
+                //gl.vertexAttrib3f(a_Position, g_points[i] * Math.sin(counter), g_points[i+1] * Math.cos(counter), 0.0);
+                //pass point draw size to attribute variable
+                gl.vertexAttrib1f(a_PointSize, g_points[i+2]); //the 'z' value
 
-            counter+= .00001;
+                // draw
+                var primitiveType = gl.POINTS;
+                var offset = 0;
+                var count = 1;
+                gl.drawArrays(primitiveType, offset, count);
 
-            //positions[i] = positions[i] * Math.sin(counter);
-            //positions[i+2] = positions[i+2] * Math.cos(counter);
+                counter+= .00001;
+
+                //positions[i] = positions[i] * Math.sin(counter);
+                //positions[i+2] = positions[i+2] * Math.cos(counter);
 
 
+            }
+
+            requestAnimationFrame(loop);
         }
 
-        requestAnimationFrame(loop);
-    }
-
-loop();
+        loop();
 
     }
 }
