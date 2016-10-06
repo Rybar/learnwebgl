@@ -14,7 +14,7 @@ function main() {
 //------context creation and shader loading boilerplate---------------
 
     //paths to external shader sources
-    var vertexShaderPath = 'shaders/pointV.glsl';
+    var vertexShaderPath = 'shaders/matricesV.glsl';
     var fragmentShaderPath = 'shaders/pointF.glsl';
 
     // Get A WebGL context
@@ -61,7 +61,7 @@ function main() {
         // Link the two shaders into a program
         var program = createProgram(gl, shaders[gl.VERTEX_SHADER], shaders[gl.FRAGMENT_SHADER]);
 
-        gl.bindAttribLocation(program, 0, 'a_Position');
+
 
 
 
@@ -69,17 +69,22 @@ function main() {
         var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
 
         // hook up js variables to gl program attributes
-        var a_Position = gl.getAttribLocation(program, 'a_Position');
+        var a_Position = gl.getAttribLocation(program, 'a_position');
 
-        var a_PointSize = gl.getAttribLocation(program, 'a_PointSize')
+        var a_PointSize = gl.getAttribLocation(program, 'a_PointSize');
 
-        var u_FragColor = gl.getUniformLocation(program, 'u_FragColor')
+        var u_FragColor = gl.getUniformLocation(program, 'u_FragColor');
+
+        var u_Matrix = gl.getUniformLocation(program, 'u_matrix');
 
         //array to store our point positions
         var g_points = [];
 
         //counter
         var counter = 0;
+        var rads = 0;
+
+        var matrix = makeIdentity();
 
 
 
@@ -97,14 +102,16 @@ function main() {
             var z = 15.0; //no 3d yet, for size
             var rect = ev.target.getBoundingClientRect();
 
-            x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
-            y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
+            //x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
+            //y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
+            x = x - rect.left;
+            y = y -rect.top;
 
-            g_points.push(x, y, z, [Math.abs(x), Math.abs(y), 0.0]);
+            g_points.push(x, y, z, [Math.abs(x)/canvas.height, Math.abs(y)/canvas.height, 0.0]);
 
         }
 
-        g_points.push(0,0,15, [0.0, 0.0, 1.0, 1.0]); //so the screen isn't blank to start
+        g_points.push(canvas.width/2,canvas.height/2,15, [0.0, 0.0, 1.0, 1.0]); //so the screen isn't blank to start
         console.log(g_points);
 
         function loop(){
@@ -117,15 +124,20 @@ function main() {
 
             var len = g_points.length;
 
+            var rotation = makeRotation(rads);
+
+            matrix = matrixMultiply(matrix, rotation);
+
             //currently only drawing one at a time, no buffer, no batch. NOT how webGL works best
             //but works for playing around with what I've learned so far
             for(var i = 0; i < len; i+=4){
 
                 //pass vertex position to attribute variable
                 gl.vertexAttrib3f(a_Position, g_points[i], g_points[i+1], 0.0);
-                //gl.vertexAttrib3f(a_Position, g_points[i] * Math.sin(counter), g_points[i+1] * Math.cos(counter), 0.0);
+
+                //gl.uniformMatrix3fv(u_Matrix, false, matrix);
                 //pass point draw size to attribute variable
-                gl.vertexAttrib1f(a_PointSize, g_points[i+2]); //the 'z' value
+                //gl.vertexAttrib1f(a_PointSize, g_points[i+2]); //the 'z' value
 
                 //set the fragment Color to the tuple we stored at i+3
                 gl.uniform4f(u_FragColor, g_points[i+3][0], g_points[i+3][1], g_points[i+3][2], 1.0);
@@ -137,6 +149,10 @@ function main() {
                 gl.drawArrays(gl.POINTS, 0, 1);
 
                 counter+= .00001;
+
+                rads = counter / 0.0174533;
+
+
 
                 //positions[i] = positions[i] * Math.sin(counter);
                 //positions[i+2] = positions[i+2] * Math.cos(counter);
